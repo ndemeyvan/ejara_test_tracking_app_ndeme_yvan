@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ndeme_yvan_tracking_plan/core/routes/route_path.dart';
 import 'package:ndeme_yvan_tracking_plan/core/theme/theme.dart';
 import '../../core/components/tracking_button.dart';
 import '../../core/helpers/TrackingHelper.dart';
 import '../../core/theme/style.dart';
+import '../bloc/amplitude_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -26,26 +28,40 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   String? validateUserName(String? value) {
-    var passNonNullValue = value ?? "";
-    if (passNonNullValue.isEmpty) {
-      return ("User name is required");
+    var text = value ?? "";
+    if (text.isEmpty) {
+      String errorMessage = "Le nom utilisateur est requis ";
+      BlocProvider.of<AmplitudeBloc>(context).add(AmplitudeEmitterEvent(
+          eventName: "input/wrong_input",
+          eventProperties: TrackingHelper.getErrorProperties(
+              type: "input", message: errorMessage)));
+      return errorMessage;
     }
     return null;
   }
 
   String? validatePassword(String? value) {
-    var passNonNullValue = value ?? "";
-    if (passNonNullValue.isEmpty) {
-      return ("Password is required");
+    var text = value ?? "";
+    if (text.isEmpty) {
+      String errorMessage = "Le mot de passe est requis";
+      BlocProvider.of<AmplitudeBloc>(context).add(AmplitudeEmitterEvent(
+          eventName: "input/wrong_input",
+          eventProperties: TrackingHelper.getErrorProperties(
+              type: "input", message: errorMessage)));
+      return errorMessage;
     }
     return null;
   }
 
-  void _validateInputs() {
+  void _validateInputs({required BuildContext context}) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       closeKeyBoard();
-      Navigator.pushNamed(context, homeScreen);
+      Navigator.pushNamed(context, homeScreen, arguments: {
+        "previousPageHeight": screenHeight(context),
+        "previousPageLoad": 100.0,
+        "previousPageSeen": 100.0,
+      });
     } else {
       closeKeyBoard();
     }
@@ -173,25 +189,11 @@ class _LoginScreenState extends State<LoginScreen> {
               Column(
                 children: [
                   TrackingButton(
-                    onPressed: _validateInputs,
+                    onPressed: (){
+                      _validateInputs(context: context);
+                    },
                     title: "Connexion",
                   ),
-                  SizedBox(
-                    height: 8.h,
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        // Go to Pin code page
-                        Navigator.pushNamed(context, homeScreen);
-                      },
-                      child: Text(
-                        "Code pin page?",
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16.sp,
-                        ),
-                        textAlign: TextAlign.center,
-                      )),
                   SizedBox(
                     height: 30.h,
                   ),

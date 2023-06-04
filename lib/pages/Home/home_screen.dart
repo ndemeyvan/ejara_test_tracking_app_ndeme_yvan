@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ndeme_yvan_tracking_plan/core/routes/route_path.dart';
@@ -10,9 +11,18 @@ import '../../core/components/transaction_component.dart';
 import '../../core/constant/constants.dart';
 import '../../core/helpers/TrackingHelper.dart';
 import '../../core/theme/theme.dart';
+import '../bloc/amplitude_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  double previousPageHeight;
+  double previousPageLoad;
+  double previousPageSeen;
+  HomeScreen(
+      {Key? key,
+      required this.previousPageHeight,
+      required this.previousPageLoad,
+      required this.previousPageSeen})
+      : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -21,6 +31,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<int> dummyList = [1, 2, 3, 4, 5, 5, 6];
   // List<int> dummyList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<AmplitudeBloc>(context).add(AmplitudeEmitterEvent(
+        eventName: "time/page_display",
+        eventProperties: TrackingHelper.getPageViewProperties(
+            previousPageHeight: widget.previousPageHeight,
+            previousPageLoad: widget.previousPageLoad,
+            previousPageSeen: widget.previousPageSeen)));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +134,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: ChipsButton(
                                 text: 'Dépôt',
                                 onPressed: () {
-                                  Navigator.pushNamed(context, depositOrWithdrawalScreen,
+                                  Navigator.pushNamed(
+                                      context, depositOrWithdrawalScreen,
                                       arguments: {
                                         'description': "Test description",
                                         "isDepositTransaction": true,
@@ -128,7 +150,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: ChipsButton(
                                 text: 'Retrait',
                                 onPressed: () {
-                                  Navigator.pushNamed(context, depositOrWithdrawalScreen,
+                                  Navigator.pushNamed(
+                                      context, depositOrWithdrawalScreen,
                                       arguments: {
                                         'description': "Test description",
                                         "isDepositTransaction": false,
@@ -149,116 +172,122 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 20.h,
                 ),
-               FadeAnimation(0.4, Card(
-                 elevation: 1,
-                 shape: RoundedRectangleBorder(
-                   borderRadius: BorderRadius.circular(30),
-                 ),
-                 child: Container(
-                   width: screenWidth(context),
-                   padding: const EdgeInsets.all(15) +
-                       const EdgeInsets.symmetric(horizontal: 10),
-                   child: Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                     children: [
-                       SvgPicture.asset(
-                         STORE_ICON,
-                         height: 40.h,
-                       ),
-                       const SizedBox(
-                         width: 10,
-                       ),
-                       Expanded(
-                         child: Column(
-                           crossAxisAlignment: CrossAxisAlignment.start,
-                           children: [
-                             Text(
-                               "Collecte journalière",
-                               style: TextStyle(
-                                   color: BLACKCOLOR,
-                                   fontWeight: FontWeight.w700,
-                                   fontSize: 19.sp),
-                             ),
-                             SizedBox(
-                               height: 5.h,
-                             ),
-                             Text(
-                               "Collecte de l’argent auprès des commerçants chaque jour ",
-                               style: TextStyle(
-                                   color: Colors.grey.withOpacity(0.8),
-                                   fontWeight: FontWeight.w700,
-                                   fontSize: 16.sp),
-                             ),
-                           ],
-                         ),
-                       ),
-                       const Icon(
-                         Icons.arrow_forward_ios,
-                         size: 16,
-                         color: Colors.grey,
-                       )
-                     ],
-                   ),
-                 ),
-               ),),
+                FadeAnimation(
+                  0.4,
+                  Card(
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Container(
+                      width: screenWidth(context),
+                      padding: const EdgeInsets.all(15) +
+                          const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SvgPicture.asset(
+                            STORE_ICON,
+                            height: 40.h,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Collecte journalière",
+                                  style: TextStyle(
+                                      color: BLACKCOLOR,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 19.sp),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Text(
+                                  "Collecte de l’argent auprès des commerçants chaque jour ",
+                                  style: TextStyle(
+                                      color: Colors.grey.withOpacity(0.8),
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 16.sp),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 16,
+                            color: Colors.grey,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 30.h,
                 ),
-                FadeAnimation(0.4, Card(
-                  elevation: 1,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Container(
-                    width: screenWidth(context),
-                    padding: const EdgeInsets.all(15) +
-                        const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SvgPicture.asset(
-                              TRANSACTION_ICON,
-                              height: 30.h,
-                            ),
-                            SizedBox(
-                              width: 10.w,
-                            ),
-                            Text(
-                              "Transactions",
-                              style: TextStyle(
-                                  color: BLACKCOLOR,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 19.sp),
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        dummyList.isEmpty
-                            ? emptyListComponent()
-                            : Column(
-                          children: [
-                            for (var item in dummyList)
-                              TrackingItemComponent(
-                                onPressed: () {},
-                                title:
-                                'Cash-in OTA Tchad vers tiernotest',
-                                amount: 100000,
-                                date: '6 Avril 2023 a 07:43',
+                FadeAnimation(
+                  0.4,
+                  Card(
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Container(
+                      width: screenWidth(context),
+                      padding: const EdgeInsets.all(15) +
+                          const EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SvgPicture.asset(
+                                TRANSACTION_ICON,
+                                height: 30.h,
                               ),
-                          ],
-                        )
-                      ],
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              Text(
+                                "Transactions",
+                                style: TextStyle(
+                                    color: BLACKCOLOR,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 19.sp),
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          dummyList.isEmpty
+                              ? emptyListComponent()
+                              : Column(
+                                  children: [
+                                    for (var item in dummyList)
+                                      TrackingItemComponent(
+                                        onPressed: () {},
+                                        title:
+                                            'Cash-in OTA Tchad vers tiernotest',
+                                        amount: 100000,
+                                        date: '6 Avril 2023 a 07:43',
+                                      ),
+                                  ],
+                                )
+                        ],
+                      ),
                     ),
                   ),
-                ),),
+                ),
                 SizedBox(
                   height: 30.h,
                 ),
@@ -274,13 +303,17 @@ class _HomeScreenState extends State<HomeScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(height: 20.h,),
+        SizedBox(
+          height: 20.h,
+        ),
         Icon(
           Icons.add_circle,
           color: Colors.grey.withOpacity(0.5),
           size: 50,
         ),
-        SizedBox(height: 10.h,),
+        SizedBox(
+          height: 10.h,
+        ),
         SizedBox(
           width: 220.w,
           child: Text(
@@ -292,7 +325,9 @@ class _HomeScreenState extends State<HomeScreen> {
             textAlign: TextAlign.center,
           ),
         ),
-        SizedBox(height: 20.h,),
+        SizedBox(
+          height: 20.h,
+        ),
       ],
     );
   }

@@ -91,85 +91,99 @@ class _DepositOrWithdrawalScreenState extends State<DepositOrWithdrawalScreen> {
                   elevation: 0.8,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Montant epargne
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 9.0),
-                          child: Text(
-                            "Montant d'épargne",
-                            style: TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 18.sp),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Montant epargne
+                          SizedBox(
+                            height: 10.h,
                           ),
-                        ),
-                        Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 7.w),
-                              child: Text(
-                                "CFA",
-                                style: TextStyle(
-                                    color: BLACKCOLOR,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 18.sp),
-                              ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 9.0),
+                            child: Text(
+                              "Montant d'épargne",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18.sp),
                             ),
-                            Expanded(
-                              child: TextFormField(
-                                style: TextStyle(
-                                    color: BLACKCOLOR,
-                                    fontWeight: FontWeight.w700),
-                                controller: depositAmountController,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  fillColor: Colors.grey.withOpacity(0.2),
-                                  hintText: "Montant du dépot",
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        width: 2, color: Colors.transparent),
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        width: 2, color: Colors.transparent),
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        width: 2, color: Colors.transparent),
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  hintStyle: TextStyle(
-                                    color: BLACKCOLOR,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                          ),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 7.w),
+                                child: Text(
+                                  "CFA",
+                                  style: TextStyle(
+                                      color: BLACKCOLOR,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18.sp),
                                 ),
-                                keyboardType: TextInputType.number,
-                                validator: validateDepositAmount,
-                                obscureText: false,
-                                onChanged: (value) {
-                                  depositAmountController.text = value;
-                                },
-                                onSaved: (String? val) {},
                               ),
-                            ),
-                          ],
-                        ),
-                        // Numero de telephone DSA
-                        MerchantSingleRow(
-                          title: 'Numero de telephone',
-                          subTitle: '237',
-                          onPressed: () {
-                            Navigator.pushNamed(context, dsaOptionScreen);
-                          },
-                        ),
-                      ],
+                              Expanded(
+                                child: TextFormField(
+                                  style: TextStyle(
+                                      color: BLACKCOLOR,
+                                      fontWeight: FontWeight.w700),
+                                  controller: depositAmountController,
+                                  decoration: InputDecoration(
+                                    isDense: true,
+                                    fillColor: Colors.grey.withOpacity(0.2),
+                                    hintText: "Montant du dépot",
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 2, color: Colors.transparent),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 2, color: Colors.transparent),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 2, color: Colors.transparent),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 2, color: Colors.transparent),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 2, color: Colors.transparent),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    hintStyle: TextStyle(
+                                      color: BLACKCOLOR,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  validator: validateDepositAmount,
+                                  obscureText: false,
+                                  onChanged: (value) {
+                                    depositAmountController.text = value;
+                                  },
+                                  onSaved: (String? val) {},
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10.h,),
+                          // Numero de telephone DSA
+                          MerchantSingleRow(
+                            title: 'Numero de telephone',
+                            subTitle: '237',
+                            onPressed: () {
+                              Navigator.pushNamed(context, dsaOptionScreen);
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

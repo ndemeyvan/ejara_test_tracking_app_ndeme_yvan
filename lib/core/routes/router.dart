@@ -21,9 +21,15 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   Map<String, dynamic>? args = settings.arguments as Map<String, dynamic>?;
   switch (routeName) {
     case homeScreen:
-      return MaterialPageRoute<Widget>(builder: (_) => const HomeScreen());
-      case confirmationCodeScreen:
-      return MaterialPageRoute<Widget>(builder: (_) => const ConfirmationCodeScreen());
+      return MaterialPageRoute<Widget>(
+          builder: (_) => HomeScreen(
+                previousPageHeight: args!['previousPageHeight'],
+                previousPageLoad: args!['previousPageLoad'],
+                previousPageSeen: args!['previousPageSeen'],
+              ));
+    case confirmationCodeScreen:
+      return MaterialPageRoute<Widget>(
+          builder: (_) => const ConfirmationCodeScreen());
     case addNumberScreen:
       return MaterialPageRoute<Widget>(builder: (_) => const AddNumberScreen());
     case settingScreen:

@@ -15,8 +15,9 @@ const double kAppBarFontSize = 22.0;
 const double kHorizontalPadding = 16.0;
 
 class Constants {
-  /// App name: `Ziki`
   static String APP_NAME = 'Tracking App';
+
+  static String API_KEY = 'a4d936d377ebafb201b7ae36694e3542';
 
   // Fonts
   static double pagePadding = 20.0;

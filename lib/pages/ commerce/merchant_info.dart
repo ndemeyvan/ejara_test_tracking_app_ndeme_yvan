@@ -187,13 +187,13 @@ class _MerchantScreenState extends State<MerchantScreen> {
                                      color: BLACKCOLOR, fontWeight: FontWeight.w700),
                                  decoration: InputDecoration(
                                    isDense: true,
+                                   fillColor: Colors.grey.withOpacity(0.2),
+                                   hintText: "Montant d'épargne",
                                    focusedErrorBorder: OutlineInputBorder(
                                      borderSide: const BorderSide(
                                          width: 2, color: Colors.transparent),
                                      borderRadius: BorderRadius.circular(5.0),
                                    ),
-                                   fillColor: Colors.grey.withOpacity(0.2),
-                                   hintText: "Montant d'épargne",
                                    errorBorder: OutlineInputBorder(
                                      borderSide: const BorderSide(
                                          width: 2, color: Colors.transparent),

@@ -27,4 +27,81 @@ class TrackingHelper {
 
     return formatter.format(number);
   }
+
+  static getErrorProperties({
+    required String type,
+    required String message,
+  }) {
+    return {
+      "Type": type,
+      "Message": message,
+    };
+  }
+
+  static getPageViewProperties({
+    required double previousPageHeight,
+    required double previousPageLoad,
+    required double previousPageSeen,
+  }) {
+    return {
+      "Previous Page height": previousPageHeight,
+      "Previous Page load": previousPageLoad,
+      "Previous Page seen": previousPageSeen,
+    };
+  }
+
+  static getContactSupportProperties({
+    required String status,
+    required String errorMessage,
+    required String type,
+    required String message,
+  }) {
+    return {
+      "status": status,
+      "errorMessage": errorMessage,
+      "type": type,
+      "message": message,
+    };
+  }
+
+  static getSetPaymentProperties({
+    required String action,
+    required String operator,
+    required String previousOperator,
+  }) {
+    return {
+      "Action": action,
+      "Operator": operator,
+      "Previous Operator": previousOperator,
+    };
+  }
+
+  static getTransactionEventProperties({
+    required double amountFiat,
+    required String paymentMethod,
+    required String status,
+  }) {
+    return {
+      "Action Fiat": amountFiat,
+      "Payment Method": paymentMethod,
+      "Status": status,
+    };
+  }
+
+  static getSavingEventProperties({
+    required double interestRate,
+    required int merchantUserId,
+    required String merchantUserName,
+    required String plan,
+  }) {
+    return {
+      "Interest Rate": interestRate,
+      "Merchant User ID": merchantUserId,
+      "Plan": merchantUserName,
+    };
+  }
+
+
+
+
 }
