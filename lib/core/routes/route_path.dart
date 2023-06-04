@@ -1,0 +1,13 @@
+const String loginScreen = '/';
+const String pinCodeScreen = '/pin_code';
+const String contactSupportScreen = '/contact_support';
+const String homeScreen = '/home_screen';
+const String merchantScreen = '/merchant_home_screen';
+const String merchantOperator = '/merchant_operateur';
+const String savingOptionScreen = '/saving_option';
+const String dsaOptionScreen = '/dsa_option_screen';
+const String transactionStatusScreen = '/transaction_status_screen';
+const String depositOrWithdrawalScreen = '/deposit_or_withdrawal_screen';
+const String settingScreen = '/setting_screen';
+const String addNumberScreen = '/add_momo_setting_screen';
+const String confirmationCodeScreen = '/verification_code_screen';
