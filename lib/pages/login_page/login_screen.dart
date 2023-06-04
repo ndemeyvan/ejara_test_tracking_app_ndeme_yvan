@@ -181,17 +181,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   TextButton(
                       onPressed: () {
                         // Go to Pin code page
-                        // Navigator.pushNamed(context, transactionStatusScreen,
-                        //     arguments: {
-                        //       'description': "Test description",
-                        //       "isSuccess": false
-                        //     });
-
-                        // Navigator.pushNamed(context, depositOrWithdrawalScreen,
-                        //     arguments: {
-                        //       'description': "Test description",
-                        //       "isDepositTransaction": false
-                        //     });
                         // Navigator.pushNamed(context, pinCodeScreen);
                       },
                       child: Text(

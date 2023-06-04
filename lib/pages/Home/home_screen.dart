@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ndeme_yvan_tracking_plan/core/routes/route_path.dart';
 import 'package:ndeme_yvan_tracking_plan/core/theme/style.dart';
 
+import '../../core/animation/fade_animation.dart';
 import '../../core/components/chips_button.dart';
 import '../../core/components/transaction_component.dart';
 import '../../core/constant/constants.dart';
@@ -111,7 +112,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             Expanded(
                               child: ChipsButton(
                                 text: 'Dépôt',
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(context, depositOrWithdrawalScreen,
+                                      arguments: {
+                                        'description': "Test description",
+                                        "isDepositTransaction": true,
+                                      });
+                                },
                               ),
                             ),
                             SizedBox(
@@ -120,7 +127,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             Expanded(
                               child: ChipsButton(
                                 text: 'Retrait',
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(context, depositOrWithdrawalScreen,
+                                      arguments: {
+                                        'description': "Test description",
+                                        "isDepositTransaction": false,
+                                      });
+                                },
                               ),
                             )
                           ],
@@ -136,63 +149,63 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 20.h,
                 ),
-                Card(
-                  elevation: 1,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Container(
-                    width: screenWidth(context),
-                    padding: const EdgeInsets.all(15) +
-                        const EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SvgPicture.asset(
-                          STORE_ICON,
-                          height: 40.h,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Collecte journalière",
-                                style: TextStyle(
-                                    color: BLACKCOLOR,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 19.sp),
-                              ),
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              Text(
-                                "Collecte de l’argent auprès des commerçants chaque jour ",
-                                style: TextStyle(
-                                    color: Colors.grey.withOpacity(0.8),
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 16.sp),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Icon(
-                          Icons.arrow_forward_ios,
-                          size: 16,
-                          color: Colors.grey,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+               FadeAnimation(0.4, Card(
+                 elevation: 1,
+                 shape: RoundedRectangleBorder(
+                   borderRadius: BorderRadius.circular(30),
+                 ),
+                 child: Container(
+                   width: screenWidth(context),
+                   padding: const EdgeInsets.all(15) +
+                       const EdgeInsets.symmetric(horizontal: 10),
+                   child: Row(
+                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       SvgPicture.asset(
+                         STORE_ICON,
+                         height: 40.h,
+                       ),
+                       const SizedBox(
+                         width: 10,
+                       ),
+                       Expanded(
+                         child: Column(
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           children: [
+                             Text(
+                               "Collecte journalière",
+                               style: TextStyle(
+                                   color: BLACKCOLOR,
+                                   fontWeight: FontWeight.w700,
+                                   fontSize: 19.sp),
+                             ),
+                             SizedBox(
+                               height: 5.h,
+                             ),
+                             Text(
+                               "Collecte de l’argent auprès des commerçants chaque jour ",
+                               style: TextStyle(
+                                   color: Colors.grey.withOpacity(0.8),
+                                   fontWeight: FontWeight.w700,
+                                   fontSize: 16.sp),
+                             ),
+                           ],
+                         ),
+                       ),
+                       const Icon(
+                         Icons.arrow_forward_ios,
+                         size: 16,
+                         color: Colors.grey,
+                       )
+                     ],
+                   ),
+                 ),
+               ),),
                 SizedBox(
                   height: 30.h,
                 ),
-                Card(
+                FadeAnimation(0.4, Card(
                   elevation: 1,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -231,21 +244,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         dummyList.isEmpty
                             ? emptyListComponent()
                             : Column(
-                                children: [
-                                  for (var item in dummyList)
-                                    TrackingItemComponent(
-                                      onPressed: () {},
-                                      title:
-                                          'Cash-in OTA Tchad vers tiernotest',
-                                      amount: 100000,
-                                      date: '6 Avril 2023 a 07:43',
-                                    ),
-                                ],
-                              )
+                          children: [
+                            for (var item in dummyList)
+                              TrackingItemComponent(
+                                onPressed: () {},
+                                title:
+                                'Cash-in OTA Tchad vers tiernotest',
+                                amount: 100000,
+                                date: '6 Avril 2023 a 07:43',
+                              ),
+                          ],
+                        )
                       ],
                     ),
                   ),
-                ),
+                ),),
                 SizedBox(
                   height: 30.h,
                 ),
