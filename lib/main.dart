@@ -1,3 +1,4 @@
+import 'package:amplitude_flutter/amplitude.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +9,15 @@ import 'core/routes/router.dart';
 
 void main() async{
   await ScreenUtil.ensureScreenSize();
+  // // Create the instance
+  final Amplitude analytics = Amplitude.getInstance(instanceName: "project");
+
+  // Initialize SDK
+  analytics.init("a4d936d377ebafb201b7ae36694e3542");
+
+  // Log an event
+  analytics.logEvent('MyApp startup',
+      eventProperties: {'friend_num': 10, 'is_heavy_user': true});
   runApp(const MyApp());
 }
 

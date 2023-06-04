@@ -54,7 +54,7 @@ dependencies:
 #  #  Dialog Box
 #  awesome_dialog: ^3.0.2
   intl: ^0.18.1
-
+  amplitude_flutter: ^3.0.0
 
 dev_dependencies:
   flutter_test:
