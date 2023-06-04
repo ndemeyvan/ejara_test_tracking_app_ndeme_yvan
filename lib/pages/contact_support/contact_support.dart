@@ -83,49 +83,64 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
               elevation: 0.8,
               child: Padding(
                 padding: const EdgeInsets.only(top: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 9.0),
-                      child: Text(
-                        "Description",
-                        style: TextStyle(
-                            color: BLACKCOLOR,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18.sp),
-                      ),
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        fillColor: Colors.grey.withOpacity(0.2),
-                        hintText: "Décrivez votre problème",
-                        focusedBorder:OutlineInputBorder(
-                          borderSide: BorderSide(
-                              width: 2, color: Colors.transparent),
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              width: 2, color: Colors.transparent),
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              width: 2, color: Colors.transparent),
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        hintStyle: TextStyle(
-                          color: Colors.grey.withOpacity(0.8,),
-                          fontWeight: FontWeight.bold,
+                child: Form(
+                  autovalidateMode: AutovalidateMode.always,
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 9.0),
+                        child: Text(
+                          "Description",
+                          style: TextStyle(
+                              color: BLACKCOLOR,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18.sp),
                         ),
                       ),
-                      keyboardType: TextInputType.text,
-                      validator: validateAnswer,
-                      obscureText: false,
-                      onSaved: (String? val) {},
-                    ),
-                  ],
+                      TextFormField(
+                        decoration: InputDecoration(
+                          fillColor: Colors.grey.withOpacity(0.2),
+                          hintText: "Décrivez votre problème",
+                          focusedBorder:OutlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 2, color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 2, color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 2, color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 2, color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 2, color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          hintStyle: TextStyle(
+                            color: Colors.grey.withOpacity(0.8,),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        keyboardType: TextInputType.text,
+                        validator: validateAnswer,
+                        obscureText: false,
+                        onSaved: (String? val) {},
+                      ),
+                      SizedBox(height: 10.h,),
+                    ],
+                  ),
                 ),
               ),
             ),

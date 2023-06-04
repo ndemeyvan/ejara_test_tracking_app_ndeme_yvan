@@ -69,6 +69,18 @@ class _SettingScreenState extends State<SettingScreen> {
                       },
                       iconPath: MOBILE_MONEY_SETTING_ICON,
                       description: "Numéro Mobile Money"),
+                  const Divider(
+                    color: Colors.grey,
+                    height: 1,
+                  ),
+                  // This MOBILE_MONEY_SETTING_ICON is blue bz , it's not possible to keep it , with the same figma group
+                  singleRowSettingItem(
+                      onPress: () {
+                        // Go to momo setting
+                        Navigator.pushNamed(context, contactSupportScreen);
+                      },
+                      iconPath: MOBILE_MONEY_SETTING_ICON,
+                      description: "Contactez le support"),
                 ],
               ),
             )
