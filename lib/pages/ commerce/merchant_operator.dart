@@ -73,6 +73,7 @@ class _MerchantOperatorState extends State<MerchantOperator> {
                     onPressed: () {
                       setState(() {
                         isMomoChecked = !isMomoChecked;
+                        isOMChecked = false;
                       });
                     },
                     isChecked: isMomoChecked,
@@ -87,6 +88,7 @@ class _MerchantOperatorState extends State<MerchantOperator> {
                   OptionChoiceTitle(
                     onPressed: () {
                       setState(() {
+                        isMomoChecked = false;
                         isOMChecked = !isOMChecked;
                       });
                     },

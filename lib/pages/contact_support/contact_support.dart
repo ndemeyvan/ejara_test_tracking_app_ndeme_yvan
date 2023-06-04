@@ -104,7 +104,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                           fillColor: Colors.grey.withOpacity(0.2),
                           hintText: "Décrivez votre problème",
                           focusedBorder:OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                                 width: 2, color: Colors.transparent),
                             borderRadius: BorderRadius.circular(5.0),
                           ),

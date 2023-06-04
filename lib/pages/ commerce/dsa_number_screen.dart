@@ -74,7 +74,9 @@ class _DsaOptionScreenState extends State<DsaOptionScreen> {
                   OptionChoiceTitle(
                     onPressed: () {
                       setState(() {
-                        isNumberOneChecked = !isNumberOneChecked;
+                         isNumberOneChecked = !isNumberOneChecked;
+                         isNumberTwoChecked = false;
+                         isNumberThreeChecked = false;
                       });
                     },
                     isChecked: isNumberOneChecked,
@@ -90,6 +92,8 @@ class _DsaOptionScreenState extends State<DsaOptionScreen> {
                     onPressed: () {
                       setState(() {
                         isNumberTwoChecked = !isNumberTwoChecked;
+                        isNumberOneChecked = false;
+                        isNumberThreeChecked = false;
                       });
                     },
                     isChecked: isNumberTwoChecked,
@@ -105,6 +109,8 @@ class _DsaOptionScreenState extends State<DsaOptionScreen> {
                     onPressed: () {
                       setState(() {
                         isNumberThreeChecked = !isNumberThreeChecked;
+                        isNumberTwoChecked = false;
+                        isNumberOneChecked = false;
                       });
                     },
                     isChecked: isNumberThreeChecked,
