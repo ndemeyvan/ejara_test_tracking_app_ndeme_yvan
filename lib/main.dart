@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
             darkTheme: ThemeData.dark(),
             title: Constants.APP_NAME,
             // initialRoute: depositOrWithdrawalScreen,
-            initialRoute: homeScreen,
+            initialRoute: loginScreen,
             onGenerateRoute: generateRoute,
           );
         });

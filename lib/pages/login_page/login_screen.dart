@@ -45,6 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       closeKeyBoard();
+      Navigator.pushNamed(context, homeScreen);
     } else {
       closeKeyBoard();
     }
@@ -181,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   TextButton(
                       onPressed: () {
                         // Go to Pin code page
-                        // Navigator.pushNamed(context, pinCodeScreen);
+                        Navigator.pushNamed(context, homeScreen);
                       },
                       child: Text(
                         "Code pin page?",
