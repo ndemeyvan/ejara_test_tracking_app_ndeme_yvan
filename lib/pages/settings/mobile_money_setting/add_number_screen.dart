@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../core/components/merchant_single_row.dart';
 import '../../../core/components/tracking_button.dart';
 import '../../../core/components/tracking_no_design_input.dart';

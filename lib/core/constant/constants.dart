@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../helpers/TrackingHelper.dart';
-
 /// Radius size 10.0
 const double kRadius = 7.0;
 
@@ -17,6 +15,7 @@ const double kHorizontalPadding = 16.0;
 class Constants {
   static String APP_NAME = 'Tracking App';
 
+  // Please put your Amplitude API KEY here guyzzzz
   static String API_KEY = 'a4d936d377ebafb201b7ae36694e3542';
 
   // Fonts
@@ -39,8 +38,3 @@ const MOBILE_MONEY_SETTING_ICON = "assets/images/mobile_money_setting_icon.svg";
 Size getMediaQuery(BuildContext context){
   return MediaQuery.of(context).size;
 }
-
-
-
-
-const openContainerTransitionDuration = 700;

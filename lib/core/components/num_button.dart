@@ -30,7 +30,6 @@ class NumberButton extends StatelessWidget {
             onPressed: () {
               if(controller.text.length<4){
                 controller.text += number.toString();
-                print("### This is the actual value : ${controller.text}");
               }
             },
             child: Text(

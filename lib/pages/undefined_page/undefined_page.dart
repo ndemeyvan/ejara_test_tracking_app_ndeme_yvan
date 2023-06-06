@@ -10,7 +10,7 @@ class UndefinedPage extends StatefulWidget {
 class _UndefinedPageState extends State<UndefinedPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Text("Hello , i don't know what you want to do , but you are lost bro , "),
       ),

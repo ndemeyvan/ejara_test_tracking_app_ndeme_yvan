@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ndeme_yvan_tracking_plan/core/routes/route_path.dart';
 import 'package:ndeme_yvan_tracking_plan/core/theme/style.dart';
-
 import '../../core/animation/fade_animation.dart';
 import '../../core/components/chips_button.dart';
 import '../../core/components/transaction_component.dart';

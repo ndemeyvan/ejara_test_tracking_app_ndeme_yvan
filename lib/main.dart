@@ -10,11 +10,6 @@ import 'core/routes/router.dart';
 
 void main() async {
   await ScreenUtil.ensureScreenSize();
-
-  // Log an event
-  // analytics.logEvent('start/start');
-  // analytics.logEvent('start/start',
-  //     eventProperties: {'friend_num': 10, 'is_heavy_user': true});
   runApp(const MyApp());
 }
 
@@ -24,13 +19,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-// // Create the instance
+    // Create the instance
     final Amplitude analytics = Amplitude.getInstance(instanceName: "project");
-
     // Initialize SDK
     analytics.init(Constants.API_KEY);
     analytics.logEvent('start/start');
-
     return MultiBlocProvider(
         providers: [
           BlocProvider(

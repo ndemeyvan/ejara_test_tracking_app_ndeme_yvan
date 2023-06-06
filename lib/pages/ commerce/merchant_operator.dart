@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/components/option_choice_item.dart';
 import '../../core/components/tracking_button.dart';
-import '../../core/theme/style.dart';
 import '../../core/theme/theme.dart';
 import '../bloc/amplitude_bloc.dart';
 

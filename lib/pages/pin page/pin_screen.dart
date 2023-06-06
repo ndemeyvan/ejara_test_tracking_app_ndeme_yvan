@@ -4,7 +4,6 @@ import 'package:ndeme_yvan_tracking_plan/core/theme/theme.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 import '../../core/components/num_pad.dart';
 import '../../core/constant/constants.dart';
-import 'package:flutter_svg/svg.dart';
 
 class PinCodeScreen extends StatefulWidget {
   const PinCodeScreen({Key? key}) : super(key: key);

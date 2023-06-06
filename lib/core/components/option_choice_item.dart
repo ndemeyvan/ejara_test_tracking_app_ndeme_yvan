@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../animation/fade_animation.dart';
 import '../theme/style.dart';
 import '../theme/theme.dart';
