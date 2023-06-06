@@ -9,7 +9,7 @@ As well as tracking via amplitude of all the events present in the specification
 - Full screen implementation logics with amplitude
 
 ## What can we expect :
-- Screen implementation to the (([Figma](https://www.figma.com/file/6iEORxJMDDBrJ5MIPQ1iq3/Application-Collecte-Cash?type=design&node-id=76-2&t=9DhTKpCsYOMQI2JC-0)))
+- Screen implementation to the [Figma](https://www.figma.com/file/6iEORxJMDDBrJ5MIPQ1iq3/Application-Collecte-Cash?type=design&node-id=76-2&t=9DhTKpCsYOMQI2JC-0)
 - navigation between screens correctly ( route name )
 - Bloc pattern
 - Screen utils implementation
