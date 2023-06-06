@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/components/merchant_single_row.dart';
 import '../../core/components/tracking_button.dart';
+import '../../core/components/tracking_no_design_input.dart';
 import '../../core/helpers/TrackingHelper.dart';
 import '../../core/routes/route_path.dart';
 import '../../core/theme/theme.dart';
+import '../bloc/amplitude_bloc.dart';
 
 class DepositOrWithdrawalScreen extends StatefulWidget {
   bool isDepositTransaction;
@@ -24,8 +27,13 @@ class _DepositOrWithdrawalScreenState extends State<DepositOrWithdrawalScreen> {
 
   String? validateDepositAmount(String? value) {
     var text = value ?? "";
+    String message = "Le montant du dépot est requis";
     if (text.isEmpty) {
-      return ("Le montant du dépot est requis");
+      BlocProvider.of<AmplitudeBloc>(context).add(AmplitudeEmitterEvent(
+          eventName: "input/wrong_input",
+          eventProperties: TrackingHelper.getErrorProperties(
+              type: "input", message: message)));
+      return message;
     }
     return null;
   }
@@ -33,6 +41,8 @@ class _DepositOrWithdrawalScreenState extends State<DepositOrWithdrawalScreen> {
   void _validateInputs() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      BlocProvider.of<AmplitudeBloc>(context)
+          .add(AmplitudeEmitterEvent(eventName: "click/btn_continue_deposit_or_withdrawal"));
       closeKeyBoard();
       Navigator.pushNamed(context, transactionStatusScreen,
           arguments: {'description': "Test description", "isSuccess": true});
@@ -123,53 +133,14 @@ class _DepositOrWithdrawalScreenState extends State<DepositOrWithdrawalScreen> {
                                 ),
                               ),
                               Expanded(
-                                child: TextFormField(
-                                  style: TextStyle(
-                                      color: BLACKCOLOR,
-                                      fontWeight: FontWeight.w700),
-                                  controller: depositAmountController,
-                                  decoration: InputDecoration(
-                                    isDense: true,
-                                    fillColor: Colors.grey.withOpacity(0.2),
-                                    hintText: "Montant du dépot",
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          width: 2, color: Colors.transparent),
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          width: 2, color: Colors.transparent),
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          width: 2, color: Colors.transparent),
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          width: 2, color: Colors.transparent),
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          width: 2, color: Colors.transparent),
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                    hintStyle: TextStyle(
-                                      color: BLACKCOLOR,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  keyboardType: TextInputType.number,
+                                child:  TrackingNoDesignInput(
+                                  fieldController: null,
                                   validator: validateDepositAmount,
-                                  obscureText: false,
-                                  onChanged: (value) {
-                                    depositAmountController.text = value;
-                                  },
-                                  onSaved: (String? val) {},
+                                  obscurText: false,
+                                  onChanged: (String? value) {},
+                                  placeholder: "Montant du dépot",
                                 ),
+
                               ),
                             ],
                           ),

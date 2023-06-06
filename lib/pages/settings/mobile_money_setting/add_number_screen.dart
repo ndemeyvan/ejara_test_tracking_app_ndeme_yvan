@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/components/merchant_single_row.dart';
 import '../../../core/components/tracking_button.dart';
+import '../../../core/components/tracking_no_design_input.dart';
 import '../../../core/helpers/TrackingHelper.dart';
 import '../../../core/routes/route_path.dart';
 import '../../../core/theme/theme.dart';
+import '../../bloc/amplitude_bloc.dart';
 
 class AddNumberScreen extends StatefulWidget {
   const AddNumberScreen({Key? key}) : super(key: key);
@@ -20,17 +23,27 @@ class _AddNumberScreenState extends State<AddNumberScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String? validatePhoneNumber(String? value) {
-    var passNonNullValue = value ?? "";
-    if (passNonNullValue.isEmpty) {
-      return ("Le numero de telephone est requis");
+    var text = value ?? "";
+    String message = "Le numero de telephone est requis";
+    if (text.isEmpty) {
+      BlocProvider.of<AmplitudeBloc>(context).add(AmplitudeEmitterEvent(
+          eventName: "input/wrong_input",
+          eventProperties: TrackingHelper.getErrorProperties(
+              type: "input", message: message)));
+      return message;
     }
     return null;
   }
 
   String? validateName(String? value) {
-    var passNonNullValue = value ?? "";
-    if (passNonNullValue.isEmpty) {
-      return ("Le nom est requis");
+    var text = value ?? "";
+    String message = "Le nom est requis";
+    if (text.isEmpty) {
+      BlocProvider.of<AmplitudeBloc>(context).add(AmplitudeEmitterEvent(
+          eventName: "input/wrong_input",
+          eventProperties: TrackingHelper.getErrorProperties(
+              type: "input", message: message)));
+      return message;
     }
     return null;
   }
@@ -39,6 +52,12 @@ class _AddNumberScreenState extends State<AddNumberScreen> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       closeKeyBoard();
+      BlocProvider.of<AmplitudeBloc>(context).add(AmplitudeEmitterEvent(
+          eventName: "Set Payment Method",
+          eventProperties: TrackingHelper.getSetPaymentProperties(
+              action: "ADD",
+              operator: "MTN Mobile Money",
+              previousOperator: "Orange Money")));
       Navigator.pushNamed(context, confirmationCodeScreen);
     } else {
       closeKeyBoard();
@@ -100,6 +119,9 @@ class _AddNumberScreenState extends State<AddNumberScreen> {
                         title: 'Operateur Mobile money',
                         subTitle: 'Orange',
                         onPressed: () {
+                          BlocProvider.of<AmplitudeBloc>(context).add(
+                              AmplitudeEmitterEvent(
+                                  eventName: "click/button_merchant_option"));
                           Navigator.pushNamed(context, merchantOperator);
                         },
                       ),
@@ -119,49 +141,12 @@ class _AddNumberScreenState extends State<AddNumberScreen> {
                               fontSize: 16.sp),
                         ),
                       ),
-                      TextFormField(
-                        controller: phoneNumberController,
-                        style: TextStyle(
-                            color: BLACKCOLOR, fontWeight: FontWeight.w700),
-                        decoration: InputDecoration(
-                          isDense: true,
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 2, color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          fillColor: Colors.grey.withOpacity(0.2),
-                          hintText: "+237 656209008",
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 2, color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 2, color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 2, color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 2, color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          hintStyle: TextStyle(
-                            color: Colors.grey.withOpacity(0.6),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16.sp,
-                          ),
-                        ),
-                        keyboardType: TextInputType.text,
+                      TrackingNoDesignInput(
+                        fieldController: phoneNumberController,
                         validator: validatePhoneNumber,
-                        obscureText: false,
-                        onSaved: (String? val) {},
+                        obscurText: false,
+                        onChanged: (String? value) {},
+                        placeholder: "+237 656209008",
                       ),
                       SizedBox(
                         height: 10.h,
@@ -182,49 +167,12 @@ class _AddNumberScreenState extends State<AddNumberScreen> {
                               fontSize: 16.sp),
                         ),
                       ),
-                      TextFormField(
-                        controller: nameController,
-                        style: TextStyle(
-                            color: BLACKCOLOR, fontWeight: FontWeight.w700),
-                        decoration: InputDecoration(
-                          isDense: true,
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 2, color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          fillColor: Colors.grey.withOpacity(0.2),
-                          hintText: "Ndeme Yvan",
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 2, color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 2, color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 2, color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 2, color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          hintStyle: TextStyle(
-                            color: Colors.grey.withOpacity(0.6),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16.sp,
-                          ),
-                        ),
-                        keyboardType: TextInputType.text,
+                      TrackingNoDesignInput(
+                        fieldController: nameController,
                         validator: validateName,
-                        obscureText: false,
-                        onSaved: (String? val) {},
+                        obscurText: false,
+                        onChanged: (String? value) {},
+                        placeholder: "Ndeme Yvan",
                       ),
                       SizedBox(
                         height: 10.h,

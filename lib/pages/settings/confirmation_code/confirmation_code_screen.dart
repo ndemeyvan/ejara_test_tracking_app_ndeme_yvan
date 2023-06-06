@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/components/tracking_button.dart';
+import '../../../core/components/tracking_no_design_input.dart';
 import '../../../core/helpers/TrackingHelper.dart';
 import '../../../core/routes/route_path.dart';
 import '../../../core/theme/theme.dart';
+import '../../bloc/amplitude_bloc.dart';
 
 class ConfirmationCodeScreen extends StatefulWidget {
   const ConfirmationCodeScreen({Key? key}) : super(key: key);
@@ -20,7 +23,17 @@ class _ConfirmationCodeScreenState extends State<ConfirmationCodeScreen> {
   String? validateCodeValue(String? value) {
     var text = value ?? "";
     if (text.isEmpty) {
-      return ("Le code de verification est requis");
+      String message = "Le code de verification est requis";
+      BlocProvider.of<AmplitudeBloc>(context).add(AmplitudeEmitterEvent(
+          eventName: "input/wrong_input",
+          eventProperties: TrackingHelper.getErrorProperties(type: "input", message: message)));
+      return message;
+    }else if (text.length < 4) {
+      String message = "Vous devez entrer 4 caractères";
+      BlocProvider.of<AmplitudeBloc>(context).add(AmplitudeEmitterEvent(
+          eventName: "input/wrong_input",
+          eventProperties: TrackingHelper.getErrorProperties(type: "input", message: message)));
+      return message;
     }
     return null;
   }
@@ -29,6 +42,8 @@ class _ConfirmationCodeScreenState extends State<ConfirmationCodeScreen> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       closeKeyBoard();
+      BlocProvider.of<AmplitudeBloc>(context)
+          .add(AmplitudeEmitterEvent(eventName: "click/btn_validate_code_pin"));
       Navigator.pushNamed(context, transactionStatusScreen,
           arguments: {'description': "Test description", "isSuccess": false});
     } else {
@@ -95,49 +110,13 @@ class _ConfirmationCodeScreenState extends State<ConfirmationCodeScreen> {
                               fontSize: 16.sp),
                         ),
                       ),
-                      TextFormField(
-                        controller: codeConfirmationController,
-                        style: TextStyle(
-                            color: BLACKCOLOR, fontWeight: FontWeight.w700),
-                        decoration: InputDecoration(
-                          isDense: true,
-                          fillColor: Colors.grey.withOpacity(0.2),
-                          hintText: "0000",
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 2, color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 2, color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 2, color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 2, color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 2, color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          hintStyle: TextStyle(
-                            color: Colors.grey.withOpacity(0.6),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16.sp,
-                          ),
-                        ),
-                        keyboardType: TextInputType.text,
+                      TrackingNoDesignInput(
+                        textInput: TextInputType.number,
+                        fieldController: codeConfirmationController,
                         validator: validateCodeValue,
-                        obscureText: false,
-                        onSaved: (String? val) {},
+                        obscurText: false,
+                        onChanged: (String? value) {},
+                        placeholder: "0000",
                       ),
                       SizedBox(
                         height: 10.h,

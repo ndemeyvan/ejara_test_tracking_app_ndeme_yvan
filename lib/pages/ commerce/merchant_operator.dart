@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/components/option_choice_item.dart';
 import '../../core/components/tracking_button.dart';
 import '../../core/theme/style.dart';
 import '../../core/theme/theme.dart';
+import '../bloc/amplitude_bloc.dart';
 
 class MerchantOperator extends StatefulWidget {
   const MerchantOperator({Key? key}) : super(key: key);
@@ -17,6 +19,8 @@ class _MerchantOperatorState extends State<MerchantOperator> {
   bool isOMChecked = false;
 
   void _validateInputs() {
+    BlocProvider.of<AmplitudeBloc>(context).add(
+        AmplitudeEmitterEvent(eventName: "click/button_save_operator_selected"));
     Navigator.pop(context);
   }
 
@@ -74,6 +78,8 @@ class _MerchantOperatorState extends State<MerchantOperator> {
                       setState(() {
                         isMomoChecked = !isMomoChecked;
                         isOMChecked = false;
+                        BlocProvider.of<AmplitudeBloc>(context).add(
+                            AmplitudeEmitterEvent(eventName: "click/check_box_button_momo"));
                       });
                     },
                     isChecked: isMomoChecked,
@@ -90,6 +96,8 @@ class _MerchantOperatorState extends State<MerchantOperator> {
                       setState(() {
                         isMomoChecked = false;
                         isOMChecked = !isOMChecked;
+                        BlocProvider.of<AmplitudeBloc>(context).add(
+                            AmplitudeEmitterEvent(eventName: "click/check_box_button_orange_money"));
                       });
                     },
                     isChecked: isOMChecked,
@@ -109,7 +117,7 @@ class _MerchantOperatorState extends State<MerchantOperator> {
                   EdgeInsets.only(bottom: 100.h),
               child: TrackingButton(
                 onPressed: _validateInputs,
-                title: "Back",
+                title: "Continue",
               ),
             ),
           ],

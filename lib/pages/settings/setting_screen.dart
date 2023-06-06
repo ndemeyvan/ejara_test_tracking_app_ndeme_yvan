@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../core/constant/constants.dart';
 import '../../core/routes/route_path.dart';
 import '../../core/theme/theme.dart';
+import '../bloc/amplitude_bloc.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -53,7 +55,13 @@ class _SettingScreenState extends State<SettingScreen> {
                 children: [
                   singleRowSettingItem(
                       onPress: () {
+                        BlocProvider.of<AmplitudeBloc>(
+                            context)
+                            .add(AmplitudeEmitterEvent(
+                            eventName:
+                            "click/pin_code_option"));
                         // Go to Pin Code setting
+                        Navigator.pushNamed(context, pinCodeScreen);
                       },
                       iconPath: CODE_PIN_ICON,
                       description: "Code Pin"),
@@ -65,6 +73,11 @@ class _SettingScreenState extends State<SettingScreen> {
                   singleRowSettingItem(
                       onPress: () {
                         // Go to momo setting
+                        BlocProvider.of<AmplitudeBloc>(
+                            context)
+                            .add(AmplitudeEmitterEvent(
+                            eventName:
+                            "click/add_number"));
                         Navigator.pushNamed(context, addNumberScreen);
                       },
                       iconPath: MOBILE_MONEY_SETTING_ICON,
@@ -77,6 +90,11 @@ class _SettingScreenState extends State<SettingScreen> {
                   singleRowSettingItem(
                       onPress: () {
                         // Go to momo setting
+                        BlocProvider.of<AmplitudeBloc>(
+                            context)
+                            .add(AmplitudeEmitterEvent(
+                            eventName:
+                            "click/contact_support_option"));
                         Navigator.pushNamed(context, contactSupportScreen);
                       },
                       iconPath: MOBILE_MONEY_SETTING_ICON,

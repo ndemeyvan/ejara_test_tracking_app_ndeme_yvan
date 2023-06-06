@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 void closeKeyBoard() {
@@ -36,6 +38,18 @@ class TrackingHelper {
       "Type": type,
       "Message": message,
     };
+  }
+
+  static makeToast({required String message}){
+    Fluttertoast.showToast(
+        msg: "event send : $message",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
   }
 
   static getPageViewProperties({

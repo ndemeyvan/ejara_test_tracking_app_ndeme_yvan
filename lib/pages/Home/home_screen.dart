@@ -70,6 +70,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         GestureDetector(
                           child: SvgPicture.asset(SETTING_ICON),
                           onTap: () {
+                            BlocProvider.of<AmplitudeBloc>(context).add(
+                                AmplitudeEmitterEvent(
+                                    eventName: "click/setting_button"));
                             Navigator.pushNamed(context, settingScreen);
                           },
                         ),
@@ -134,6 +137,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: ChipsButton(
                                 text: 'Dépôt',
                                 onPressed: () {
+                                  BlocProvider.of<AmplitudeBloc>(context).add(
+                                      AmplitudeEmitterEvent(
+                                          eventName: "click/deposit_button"));
                                   Navigator.pushNamed(
                                       context, depositOrWithdrawalScreen,
                                       arguments: {
@@ -150,6 +156,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: ChipsButton(
                                 text: 'Retrait',
                                 onPressed: () {
+                                  BlocProvider.of<AmplitudeBloc>(context).add(
+                                      AmplitudeEmitterEvent(
+                                          eventName: "Float Withdrawal"));
                                   Navigator.pushNamed(
                                       context, depositOrWithdrawalScreen,
                                       arguments: {
@@ -195,27 +204,45 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 10,
                           ),
                           Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Collecte journalière",
-                                  style: TextStyle(
-                                      color: BLACKCOLOR,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 19.sp),
-                                ),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                Text(
-                                  "Collecte de l’argent auprès des commerçants chaque jour ",
-                                  style: TextStyle(
-                                      color: Colors.grey.withOpacity(0.8),
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 16.sp),
-                                ),
-                              ],
+                            child: GestureDetector(
+                              onTap: () {
+                                BlocProvider.of<AmplitudeBloc>(context).add(
+                                    AmplitudeEmitterEvent(
+                                        eventName: "Float Withdrawal",
+                                        eventProperties: TrackingHelper
+                                            .getSavingEventProperties(
+                                                interestRate: 10,
+                                                merchantUserId: 02,
+                                                merchantUserName:
+                                                    "Test Merchant user name",
+                                                plan: "OTA Tchad")));
+                                BlocProvider.of<AmplitudeBloc>(context).add(
+                                    AmplitudeEmitterEvent(
+                                        eventName:
+                                            "click/collection_component"));
+                              },
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Collecte journalière",
+                                    style: TextStyle(
+                                        color: BLACKCOLOR,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 19.sp),
+                                  ),
+                                  SizedBox(
+                                    height: 5.h,
+                                  ),
+                                  Text(
+                                    "Collecte de l’argent auprès des commerçants chaque jour ",
+                                    style: TextStyle(
+                                        color: Colors.grey.withOpacity(0.8),
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 16.sp),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           const Icon(
@@ -275,7 +302,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   children: [
                                     for (var item in dummyList)
                                       TrackingItemComponent(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          BlocProvider.of<AmplitudeBloc>(
+                                                  context)
+                                              .add(AmplitudeEmitterEvent(
+                                                  eventName:
+                                                      "click/select_transaction"));
+                                        },
                                         title:
                                             'Cash-in OTA Tchad vers tiernotest',
                                         amount: 100000,

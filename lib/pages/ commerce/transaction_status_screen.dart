@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ndeme_yvan_tracking_plan/core/routes/route_path.dart';
 import 'package:ndeme_yvan_tracking_plan/core/theme/theme.dart';
 
 import '../../core/components/tracking_button.dart';
+import '../../core/theme/style.dart';
+import '../bloc/amplitude_bloc.dart';
 
 class TransactionStatusScreen extends StatefulWidget {
   bool isSuccess;
   String description;
-   TransactionStatusScreen({Key? key,required this.description,required this.isSuccess}) : super(key: key);
+  TransactionStatusScreen(
+      {Key? key, required this.description, required this.isSuccess})
+      : super(key: key);
 
   @override
   State<TransactionStatusScreen> createState() =>
@@ -16,7 +22,19 @@ class TransactionStatusScreen extends StatefulWidget {
 
 class _TransactionStatusScreenState extends State<TransactionStatusScreen> {
   void _validateInputs() {
-    Navigator.pop(context);
+    BlocProvider.of<AmplitudeBloc>(context)
+        .add(AmplitudeEmitterEvent(eventName: "click/btn_go_back_home"));
+    /*
+      * Normally I'd use a scroll listener to listen to the user's
+      *  movements on the page, let's suppose that the value
+      * is this one at the bottom
+      * */
+    Navigator.pushNamedAndRemoveUntil(context, homeScreen, (route) => false,
+        arguments: {
+          "previousPageHeight": screenHeight(context),
+          "previousPageLoad": 100.0,
+          "previousPageSeen": 100.0,
+        });
   }
 
   @override
@@ -31,9 +49,7 @@ class _TransactionStatusScreenState extends State<TransactionStatusScreen> {
             children: [
               SuccessOrErrorComponent(
                   isSuccessComponent: widget.isSuccess,
-                  description: widget.description
-                  // description: 'Valider la transaction en tapant #150*10#'
-              ),
+                  description: widget.description),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.w) +
                     EdgeInsets.only(bottom: 100.h),

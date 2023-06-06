@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ndeme_yvan_tracking_plan/core/routes/route_path.dart';
 import 'package:ndeme_yvan_tracking_plan/core/theme/theme.dart';
 import '../../core/components/tracking_button.dart';
+import '../../core/components/tracking_loginInput.dart';
 import '../../core/helpers/TrackingHelper.dart';
 import '../../core/theme/style.dart';
 import '../bloc/amplitude_bloc.dart';
@@ -57,6 +58,13 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       closeKeyBoard();
+      BlocProvider.of<AmplitudeBloc>(context)
+          .add(AmplitudeEmitterEvent(eventName: "click/connexion_button"));
+      /*
+      * Normally I'd use a scroll listener to listen to the user's
+      *  movements on the page, let's suppose that the value
+      * is this one at the bottom
+      * */
       Navigator.pushNamed(context, homeScreen, arguments: {
         "previousPageHeight": screenHeight(context),
         "previousPageLoad": 100.0,
@@ -110,75 +118,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 25.h,
                     ),
                     //User name
-                    TextFormField(
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 0) +
-                            EdgeInsets.only(left: 13.w),
-                        // fillColor: Colors.grey.withOpacity(0.2),
-                        // filled: true,
-                        hintText: "User name",
-                        hintStyle:
-                            TextStyle(color: Colors.grey.withOpacity(0.8)),
-
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              width: 2, color: Colors.grey.withOpacity(0.5)),
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              width: 2, color: Colors.grey.withOpacity(0.5)),
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(width: 2, color: Colors.red),
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                      ),
-                      keyboardType: TextInputType.text,
+                    TrackingLoginScreenInput(
+                      obscurText: false,
+                      fieldController: null,
                       validator: validateUserName,
-                      onSaved: (String? val) {
-                        _userName = val;
-                      },
+                      onChanged: (String? value) {},
+                      placeholder: "User name",
                     ),
                     SizedBox(
                       height: 15.h,
                     ),
                     //  Password
-                    TextFormField(
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 0) +
-                            EdgeInsets.only(left: 13.w),
-                        fillColor: Colors.grey.withOpacity(0.2),
-                        // filled: true,
-                        hintText: "Mot de passe",
-                        hintStyle:
-                            TextStyle(color: Colors.grey.withOpacity(0.8)),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              width: 2, color: Colors.grey.withOpacity(0.5)),
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              width: 2, color: Colors.grey.withOpacity(0.5)),
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(width: 2, color: Colors.red),
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                      ),
-                      keyboardType: TextInputType.text,
+                    TrackingLoginScreenInput(
+                      obscurText: true,
+                      fieldController: null,
+                      textInput: TextInputType.visiblePassword,
                       validator: validatePassword,
-                      obscureText: true,
-                      onSaved: (String? val) {
-                        _passWord = val;
-                      },
+                      onChanged: (String? value) {},
+                      placeholder: "Mot de passe",
                     ),
                     SizedBox(
                       height: 35.h,
@@ -189,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Column(
                 children: [
                   TrackingButton(
-                    onPressed: (){
+                    onPressed: () {
                       _validateInputs(context: context);
                     },
                     title: "Connexion",

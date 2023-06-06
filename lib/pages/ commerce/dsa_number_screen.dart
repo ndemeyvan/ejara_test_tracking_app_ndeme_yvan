@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/components/option_choice_item.dart';
 import '../../core/components/tracking_button.dart';
 import '../../core/theme/style.dart';
 import '../../core/theme/theme.dart';
+import '../bloc/amplitude_bloc.dart';
 
 class DsaOptionScreen extends StatefulWidget {
   const DsaOptionScreen({Key? key}) : super(key: key);
@@ -17,8 +19,9 @@ class _DsaOptionScreenState extends State<DsaOptionScreen> {
   bool isNumberTwoChecked = false;
   bool isNumberThreeChecked = false;
 
-
   void _validateInputs() {
+    BlocProvider.of<AmplitudeBloc>(context).add(
+        AmplitudeEmitterEvent(eventName: "click/button_save_number"));
     Navigator.pop(context);
   }
 
@@ -69,61 +72,66 @@ class _DsaOptionScreenState extends State<DsaOptionScreen> {
               ],
             ),
             Card(
-              child:Column(
-                children: [
-                  OptionChoiceTitle(
-                    onPressed: () {
-                      setState(() {
-                         isNumberOneChecked = !isNumberOneChecked;
-                         isNumberTwoChecked = false;
-                         isNumberThreeChecked = false;
-                      });
-                    },
-                    isChecked: isNumberOneChecked,
-                    subTitle: '+223 656209008',
-                    showTitle: true,
-                    title: 'MTN',
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                    height: 1,
-                  ),
-                  OptionChoiceTitle(
-                    onPressed: () {
-                      setState(() {
-                        isNumberTwoChecked = !isNumberTwoChecked;
-                        isNumberOneChecked = false;
-                        isNumberThreeChecked = false;
-                      });
-                    },
-                    isChecked: isNumberTwoChecked,
-                    subTitle: '+223 656209011',
-                    showTitle: true,
-                    title: 'Orange money',
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                    height: 1,
-                  ),
-                  OptionChoiceTitle(
-                    onPressed: () {
-                      setState(() {
-                        isNumberThreeChecked = !isNumberThreeChecked;
-                        isNumberTwoChecked = false;
-                        isNumberOneChecked = false;
-                      });
-                    },
-                    isChecked: isNumberThreeChecked,
-                    subTitle: '+223 656209010',
-                    showTitle: true,
-                    title: 'Move',
-                  ),
-
-
-
-                ],
-              )
-            ),
+                child: Column(
+              children: [
+                OptionChoiceTitle(
+                  onPressed: () {
+                    BlocProvider.of<AmplitudeBloc>(context).add(
+                        AmplitudeEmitterEvent(
+                            eventName: "click/check_box_number"));
+                    setState(() {
+                      isNumberOneChecked = !isNumberOneChecked;
+                      isNumberTwoChecked = false;
+                      isNumberThreeChecked = false;
+                    });
+                  },
+                  isChecked: isNumberOneChecked,
+                  subTitle: '+223 656209008',
+                  showTitle: true,
+                  title: 'MTN',
+                ),
+                const Divider(
+                  color: Colors.grey,
+                  height: 1,
+                ),
+                OptionChoiceTitle(
+                  onPressed: () {
+                    BlocProvider.of<AmplitudeBloc>(context).add(
+                        AmplitudeEmitterEvent(
+                            eventName: "click/check_box_number"));
+                    setState(() {
+                      isNumberTwoChecked = !isNumberTwoChecked;
+                      isNumberOneChecked = false;
+                      isNumberThreeChecked = false;
+                    });
+                  },
+                  isChecked: isNumberTwoChecked,
+                  subTitle: '+223 656209011',
+                  showTitle: true,
+                  title: 'Orange money',
+                ),
+                const Divider(
+                  color: Colors.grey,
+                  height: 1,
+                ),
+                OptionChoiceTitle(
+                  onPressed: () {
+                    BlocProvider.of<AmplitudeBloc>(context).add(
+                        AmplitudeEmitterEvent(
+                            eventName: "click/check_box_number"));
+                    setState(() {
+                      isNumberThreeChecked = !isNumberThreeChecked;
+                      isNumberTwoChecked = false;
+                      isNumberOneChecked = false;
+                    });
+                  },
+                  isChecked: isNumberThreeChecked,
+                  subTitle: '+223 656209010',
+                  showTitle: true,
+                  title: 'Move',
+                ),
+              ],
+            )),
             SizedBox(
               height: 170.h,
             ),
@@ -132,7 +140,7 @@ class _DsaOptionScreenState extends State<DsaOptionScreen> {
                   EdgeInsets.only(bottom: 100.h),
               child: TrackingButton(
                 onPressed: _validateInputs,
-                title: "Back",
+                title: "Continuer",
               ),
             ),
           ],
