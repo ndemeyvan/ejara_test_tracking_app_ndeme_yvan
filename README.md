@@ -1,16 +1,28 @@
 # ndeme_yvan_tracking_plan
 
-This is the Ejara test project
+## This is the test project of Ejara tracking plan made by Ndeme Yvan Rodrigue
+The aim of the project is to track the various actions carried out by the user on the screen, clicks, scrolls, page view, etc.
+To install the application, you can follow the steps below
 
-## Getting Started
+## Change amplitude API_KEY
 
-This project is a starting point for a Flutter application.
+```bash
+$ go to the path : lib/core/constant/constants.dart 
+```
 
-A few resources to get you started if this is your first Flutter project:
+## Installation
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```bash
+$ flutter pub get
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Running the app
+
+```bash
+$ flutter run --verbose
+```
+## Build the app
+
+```bash
+$ flutter build
+```
