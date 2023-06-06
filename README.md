@@ -15,10 +15,12 @@ As well as tracking via amplitude of all the events present in the specification
 - Field validation 
 - Screen divided into the most important components for greater reusability (buttons, text fields, etc.)
 - Project to separate and divide into specific folders
+- Basic event management 
 
 ## We should not expect :
 - Features integrated with a backend
 - Full screen implementation logics with amplitude as mentionned on doc
+- Not all types of event have been take in charge
 
 ## Change amplitude API_KEY
 
